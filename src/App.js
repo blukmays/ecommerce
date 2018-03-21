@@ -6,26 +6,18 @@ import { BrowserRouter as Router, Route, Link, Switch} from 'react-router-dom'
 import Homepage from './Components/Homepage/home.js'
 import Product from './Components/Product/product.js'
 import Cart from './Components/Cart/cart.js'
-
+import Routes from './00-Routes'
 
 
 class App extends Component {
-  render() {
-    return (
-      <div className="App">
+    render() {
+        return (
+            <div>
+                <Routes />
+            </div>
+                );
+                }
+                }
 
+                export default App;
 
-
-
-        <Switch>
-             <Route exact path="/" component={Homepage} />
-             <Route path="/1" component={Cart}  />
-            <Route path="/2" component={Product}  />
-         </Switch>
-
-      </div>
-    );
-  }
-}
-
-export default App;

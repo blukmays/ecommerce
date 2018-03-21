@@ -9,7 +9,8 @@ import {increasecart, decreasecart,} from "../../actions";
 import { connect } from 'react-redux'
 
 
-class Product extends Component {
+
+export class product extends Component {
     render() {
         const { products, onIncrease, onDecrease} = this.props;
         return (
@@ -37,10 +38,9 @@ class Product extends Component {
                     <div className="">
                         <p >Quantity</p>
                         <div>Products: {products}</div>
-
-
                         <button onClick={onIncrease}>+</button>
                         <button onClick={onDecrease}>-</button>
+
 
 
                         {/*<input type="number" min="0" />*/}
@@ -61,8 +61,13 @@ class Product extends Component {
                     <img src={Tumeric} alt="Tumeric"/>
                     </div>
                     <p>Quantity</p>
-                    <input  type="number" min="0"/>
-                    <input type="submit" name="Add To Cart" value="Add To Cart"/>
+                        <div>Products: {products}</div>
+
+
+
+
+                        <button onClick={onIncrease}>+</button>
+                        <button onClick={onDecrease}>-</button>
                     <p class="para1">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
                     </div>
 
@@ -75,9 +80,14 @@ class Product extends Component {
                     <h2 class="name">Orange Ginger</h2>
                     <img src={Ginger} alt="Ginger"/>
                     </div>
-                    <p>Quantity</p>
-                    <input type="number" min="0"/>
-                    <input type="submit" name="Add To Cart" value="Add To Cart"/>
+                        <p >Quantity</p>
+                        <div>Products: {products}</div>
+
+
+
+
+                        <button onClick={onIncrease}>+</button>
+                        <button onClick={onDecrease}>-</button>
                     <p class="para1">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
                     </div>
 
@@ -92,28 +102,23 @@ class Product extends Component {
         );
     }
 }
-// const mapStateToProps= state => {
-//     return {
-//         products: state.products
-//     }
-// };
-//
-//
-//
-//
-// const mapDispatchToProps = dispatch => {
-//     return {
-//         onIncrease() {
-//             return dispatch(increasecart())
-//         },
-//         onDecrease() {
-//             return dispatch(decreasecart())
-//         }
-//     }
-// };
-//
-//
-//
-//
-// export default connect(mapStateToProps, mapDispatchToProps)(Product)
-export default Product;
+const mapStateToProps = state => {
+    return {
+        products: state.products
+    }
+};
+
+const mapDispatchToProps = dispatch => {
+    return {
+        onIncrease() {
+            return dispatch(increasecart())
+        },
+        onDecrease() {
+            return dispatch(decreasecart())
+        },
+
+
+    }
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(product)

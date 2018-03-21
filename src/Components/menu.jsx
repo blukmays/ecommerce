@@ -7,7 +7,7 @@ class Menu extends Component {
     render() {
         return (
             <div className="menu">
-                <Link to="/">Home</Link> | <Link to="/1">Cart</Link> | <Link to="/2">Product</Link>
+                <Link to="/">Home</Link> | <Link to="/Cart">Cart</Link> | <Link to="/Product">Product</Link>
             </div>
         );
     }
