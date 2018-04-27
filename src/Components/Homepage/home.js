@@ -6,9 +6,10 @@ import Kombucha from './Kombucha.png'
 import Orange from './orange.png'
 
 class Home extends Component {
+
     render() {
         return (
-            <div>
+            <div className="container">
                 <style>
                     @import url('https://fonts.googleapis.com/css?family=Karma|Lato|Pacifico');
                 </style>

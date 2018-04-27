@@ -10,115 +10,53 @@ import { connect } from 'react-redux'
 
 
 
-export class product extends Component {
+export default class Product extends Component {
+    constructor() {
+        super();
+        this.state = {
+            products: []
+        }
+    }
+
+    componentDidMount() {
+        fetch("http://localhost:8080/api/products")
+            .then(res => res.json())
+            .then(products => {
+                console.log('ddddddd', products)
+                this.setState({products: products})
+            })
+            .catch(err => console.log(err))
+    }
+
     render() {
+        const productMap = this.state.products.length ? this.state.products.map((product, i) => {
+            return (
+
+                    <div key={i} className="row">
+                        <div className="col-sm-4">
+                            <h2 className="name">{product.name}</h2>
+                            <img src={product.url} width="300px" height="400px"/>
+                        </div>
+                        <div className="col-sm-8">
+                            <p >Price: {product.price}</p>
+                            <p >Quantity</p>
+                            <button onClick={onIncrease}>+</button>
+                            <button onClick={onDecrease}>-</button>
+                            <p className="para1">{product.description}</p>
+                        </div>
+                        <hr/>
+                    </div>
+
+
+            )
+        }) : [];
+
         const { products, onIncrease, onDecrease} = this.props;
         return (
-            <div className="product">
-
-                <style>
-                    @import url('https://fonts.googleapis.com/css?family=Lobster|Pacifico');
-                </style>
-
-                <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css"/>
-
-                <Menu/>
-
-                <div><h1 class="Products">Our Products</h1></div>
-
-                <div className="container">
-
-                    <div className="row">
-                        <div className="col-sm-3">
-                    <h1 class="name">Raspberry Lemonade</h1>
-                            <img class="lemon" src={Lemonade} alt="Lemonade"/>
-                        </div>
-
-
-                    <div className="">
-                        <p >Quantity</p>
-                        <div>Products: {products}</div>
-                        <button onClick={onIncrease}>+</button>
-                        <button onClick={onDecrease}>-</button>
-
-
-
-                        {/*<input type="number" min="0" />*/}
-                        {/*<input type="submit" name="Add To Cart" value="Add To Cart"/>*/}
-                        <p class="para1">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-                    </div>
-
-
-                    </div>
-
-
-                </div>
-
-                <div>
-                    <div className="row">
-                    <div className="col-sm-3">
-                    <h2 class="name">Mango Tumeric</h2>
-                    <img src={Tumeric} alt="Tumeric"/>
-                    </div>
-                    <p>Quantity</p>
-                        <div>Products: {products}</div>
-
-
-
-
-                        <button onClick={onIncrease}>+</button>
-                        <button onClick={onDecrease}>-</button>
-                    <p class="para1">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-                    </div>
-
-
-                </div>
-
-                <div>
-                    <div className="row">
-                        <div className="col-sm-3">
-                    <h2 class="name">Orange Ginger</h2>
-                    <img src={Ginger} alt="Ginger"/>
-                    </div>
-                        <p >Quantity</p>
-                        <div>Products: {products}</div>
-
-
-
-
-                        <button onClick={onIncrease}>+</button>
-                        <button onClick={onDecrease}>-</button>
-                    <p class="para1">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-                    </div>
-
-                </div>
-
-
-
-
-
-
+            <div className="container">
+                <div><h1 className="Products">Our Products</h1></div>
+                {productMap}
             </div>
         );
     }
 }
-const mapStateToProps = state => {
-    return {
-        products: state.products
-    }
-};
-
-const mapDispatchToProps = dispatch => {
-    return {
-        onIncrease() {
-            return dispatch(increasecart())
-        },
-        onDecrease() {
-            return dispatch(decreasecart())
-        },
-
-
-    }
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(product)
