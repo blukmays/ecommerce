@@ -2,6 +2,7 @@ const express = require('express');
 const bodyPaser = require('body-parser');
 const mongoose = require('mongoose');
 const session = require('express-session');
+const path = require('path');
 const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 
@@ -28,6 +29,8 @@ const UserSchema = new mongoose.Schema({
 const UserModel = mongoose.model("users", UserSchema);
 
 const app = express();
+
+app.use(express.static(path.resolve(__dirname + '/../build')))
 
 app.use(function(req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
@@ -59,7 +62,7 @@ passport.deserializeUser(function(id, done) {
 passport.use(new GoogleStrategy({
         clientID: '161317582843-takuk8e2smaoqso6vb8a21t0l9vj3k5g.apps.googleusercontent.com',
         clientSecret: 'eCw6ReEU3G7e-MKC09awmi83',
-        callbackURL: "http://localhost:3000/auth/google/callback"
+        callbackURL: "http://localhost:3001/api/auth/google/callback"
     },
     function(accessToken, refreshToken, profile, cb) {
         console.log('profile info from google', profile);
@@ -82,21 +85,15 @@ passport.use(new GoogleStrategy({
                 cb(err, null);
             })
         });
-
-        //const fs = require('fs');
-        //fs.writeFileSync('userdata.json', JSON.stringify((profile)));
-//        User.findOrCreate({ googleId: profile.id }, function (err, user) {
-  //          return cb(err, user);
-    //    });
     }
 ));
 
 // Authentication routes
-app.get('/auth/google',
+app.get('/api/auth/google',
     passport.authenticate('google', { scope: ['profile', 'email'] })
 );
 
-app.get('/auth/google/callback',
+app.get('/api/auth/google/callback',
     passport.authenticate('google', { failureRedirect: '/login' }),
     function(req, res) {
         // Successful authentication, redirect home.
@@ -126,4 +123,8 @@ app.delete("/api/products", (req, res) => {
         .catch(err => res.send(err));
 })
 
-app.listen(3000, () => console.log('Server started on 3000!!!'));
+//app.get('*', (req, res) => {
+  //  res.sendFile(path.resolve(__dirname ))
+//})
+
+app.listen(process.env.PORT || 3001, () => console.log('Server started on 3000!!!'));

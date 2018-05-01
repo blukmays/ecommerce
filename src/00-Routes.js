@@ -9,6 +9,7 @@ import Homepage from "./Components/Homepage/home";
 export default () =>(
     <Switch>
         <Route exact path="/" component={Homepage}/>
+
         <Route path="/cart" component={Cart}/>
         <Route path="/product" component={Product}/>
         <Route path="/newproduct" component={NewProduct}/>
